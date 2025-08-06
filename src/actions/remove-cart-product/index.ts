@@ -32,7 +32,7 @@ export const removeProductFromCart = async (
   const cart = await db.query.cartTable.findFirst({
     where: (cart, { eq }) => eq(cart.userId, session.user.id),
   });
-  let cartId = cart?.id;
+  const cartId = cart?.id;
   if (!cartId) return;
   const cartItem = await db.query.cartItemTable.findFirst({
     where: (cartItem, { eq }) =>

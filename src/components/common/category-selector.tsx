@@ -1,6 +1,7 @@
+import Link from "next/link";
+
 import { categoryTable } from "@/db/schema";
 
-import Link from "next/link";
 import { Button } from "../ui/button";
 
 interface CategorySelectorProps {

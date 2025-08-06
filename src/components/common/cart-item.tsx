@@ -1,11 +1,11 @@
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { MinusIcon, PlusIcon, TrashIcon } from "lucide-react";
 import Image from "next/image";
 
-import { formatCentsToBRL } from "@/helpers/money";
-
 import { addProductToCart } from "@/actions/add-cart-product";
 import { removeProductFromCart } from "@/actions/remove-cart-product";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { formatCentsToBRL } from "@/helpers/money";
+
 import { Button } from "../ui/button";
 
 interface CartItemProps {

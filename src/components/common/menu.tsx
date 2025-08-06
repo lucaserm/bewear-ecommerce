@@ -1,3 +1,13 @@
+import {
+  HomeIcon,
+  LogOutIcon,
+  LucideIcon,
+  MenuIcon,
+  ShoppingBagIcon,
+  TruckIcon,
+} from "lucide-react";
+import Link from "next/link";
+
 import { AvatarContent } from "@/components/common/avatar-content";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -10,15 +20,6 @@ import {
 } from "@/components/ui/sheet";
 import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
-import {
-  HomeIcon,
-  LogOutIcon,
-  LucideIcon,
-  MenuIcon,
-  ShoppingBagIcon,
-  TruckIcon,
-} from "lucide-react";
-import Link from "next/link";
 
 export const Menu = () => {
   const { data: session } = authClient.useSession();

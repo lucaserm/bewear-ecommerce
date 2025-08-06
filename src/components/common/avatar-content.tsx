@@ -1,8 +1,9 @@
-import { Button } from "@/components/ui/button";
-import { authClient } from "@/lib/auth-client";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { LogInIcon } from "lucide-react";
 import Link from "next/link";
+
+import { Button } from "@/components/ui/button";
+import { authClient } from "@/lib/auth-client";
 
 export const AvatarContent = () => {
   const { data: session } = authClient.useSession();

@@ -2,7 +2,7 @@ import SignInForm from "@/app/authentication/components/sign-in-form";
 import SignUpForm from "@/app/authentication/components/sign-up-form";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-export function Authentication() {
+function Authentication() {
   return (
     <div className="flex w-full flex-col gap-6 p-5">
       <Tabs defaultValue="sign-in">
