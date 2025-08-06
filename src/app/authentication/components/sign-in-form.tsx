@@ -51,14 +51,14 @@ const SignInForm = () => {
         onSuccess: () => {
           router.push("/");
         },
-        onError: (ctx) => {
-          if (ctx.error.code === "USER_NOT_FOUND") {
+        onError: ({ error }) => {
+          if (error.code === "USER_NOT_FOUND") {
             toast.error("E-mail não encontrado.");
             return form.setError("email", {
               message: "E-mail não encontrado.",
             });
           }
-          if (ctx.error.code === "INVALID_EMAIL_OR_PASSWORD") {
+          if (error.code === "INVALID_EMAIL_OR_PASSWORD") {
             toast.error("E-mail ou senha inválidos.");
             form.setError("password", {
               message: "E-mail ou senha inválidos.",
@@ -67,7 +67,7 @@ const SignInForm = () => {
               message: "E-mail ou senha inválidos.",
             });
           }
-          toast.error(ctx.error.message);
+          toast.error(error.message);
         },
       },
     });

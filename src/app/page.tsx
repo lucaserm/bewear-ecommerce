@@ -46,7 +46,7 @@ const Home = async () => {
         <div className="px-5">
           <Image
             src="/banner-02.png"
-            alt="Leve uma vida com estilo"
+            alt="Seja autêntico"
             height={0}
             width={0}
             sizes="100vw"
