@@ -1,5 +1,11 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import z from "zod";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -18,20 +24,14 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import z from "zod";
+import { authClient } from "@/lib/auth-client";
 
 const formSchema = z
   .object({
     name: z.string("Nome inválido.").trim().min(1, "Nome é obrigatório."),
     email: z.email("E-mail inválido."),
-    password: z
-      .string("Senha inválida.")
-      .min(8, "A senha deve ter no mínimo 8 caracteres."),
-    passwordConfirmation: z
-      .string("Senha inválida.")
-      .min(8, "A senha deve ter no mínimo 8 caracteres."),
+    password: z.string("Senha inválida.").min(8, "Senha inválida."),
+    passwordConfirmation: z.string("Senha inválida.").min(8, "Senha inválida."),
   })
   .refine(
     (data) => {
@@ -45,7 +45,8 @@ const formSchema = z
 
 type FormValues = z.infer<typeof formSchema>;
 
-const SignInForm = () => {
+const SignUpForm = () => {
+  const router = useRouter();
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -55,21 +56,40 @@ const SignInForm = () => {
       passwordConfirmation: "",
     },
   });
-  function onSubmit(values: FormValues) {
-    console.log("FORMULARIO VALIDO E ENVIADO");
-    console.log(values);
+
+  async function onSubmit(values: FormValues) {
+    await authClient.signUp.email({
+      name: values.name,
+      email: values.email,
+      password: values.password,
+      fetchOptions: {
+        onSuccess: () => {
+          router.push("/");
+        },
+        onError: (error) => {
+          if (error.error.code === "USER_ALREADY_EXISTS") {
+            toast.error("E-mail já cadastrado.");
+            return form.setError("email", {
+              message: "E-mail já cadastrado.",
+            });
+          }
+          toast.error(error.error.message);
+        },
+      },
+    });
   }
 
   return (
     <>
-      <Card>
+      <Card className="w-full">
         <CardHeader>
           <CardTitle>Criar conta</CardTitle>
           <CardDescription>Crie uma conta para continuar.</CardDescription>
         </CardHeader>
+
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            <CardContent className="grid gap-6">
+            <CardContent className="grid w-full gap-6">
               <FormField
                 control={form.control}
                 name="name"
@@ -118,10 +138,10 @@ const SignInForm = () => {
                 name="passwordConfirmation"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Senha</FormLabel>
+                    <FormLabel>Confirmar senha</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Digite sua senha novamente"
+                        placeholder="Digite a sua senha novamente"
                         type="password"
                         {...field}
                       />
@@ -141,4 +161,4 @@ const SignInForm = () => {
   );
 };
 
-export default SignInForm;
+export default SignUpForm;
