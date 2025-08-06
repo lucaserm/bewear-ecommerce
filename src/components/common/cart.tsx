@@ -1,7 +1,7 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { ShoppingBasketIcon } from "lucide-react";
+import { ShoppingBagIcon } from "lucide-react";
 
 import { getCart } from "@/actions/get-cart";
 import { Button } from "@/components/ui/button";
@@ -27,14 +27,14 @@ export const Cart = () => {
     <Sheet>
       <SheetTrigger asChild>
         <Button variant="outline" size="icon">
-          <ShoppingBasketIcon />
+          <ShoppingBagIcon />
         </Button>
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>
           <SheetTitle>Carrinho</SheetTitle>
         </SheetHeader>
-
+        {cartIsLoading && <p>Loading...</p>}
         <div className="flex h-full flex-col px-5 pb-5">
           <div className="flex h-full max-h-full flex-col overflow-hidden">
             <ScrollArea className="h-full">
@@ -42,7 +42,7 @@ export const Cart = () => {
                 {cart?.items.map((item) => (
                   <CartItem
                     key={item.id}
-                    id={item.id}
+                    productVariantId={item.productVariant.id}
                     productName={item.productVariant.product.name}
                     productVariantName={item.productVariant.name}
                     productVariantImageUrl={item.productVariant.imageUrl}
@@ -87,5 +87,3 @@ export const Cart = () => {
     </Sheet>
   );
 };
-
-// SERVER ACTION
