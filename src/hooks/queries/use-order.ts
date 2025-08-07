@@ -1,5 +1,6 @@
-import { getOrders } from "@/actions/order/get-orders";
 import { useQuery } from "@tanstack/react-query";
+
+import { getOrders } from "@/actions/order/get-orders";
 
 export const getUseOrdersQueryKey = () => ["order"] as const;
 

@@ -1,3 +1,8 @@
+import { ChevronDown, ChevronUp } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
+
 import { Order } from "@/components/common/orders-list";
 import { Button } from "@/components/ui/button";
 import {
@@ -7,10 +12,6 @@ import {
 } from "@/components/ui/collapsible";
 import { Separator } from "@/components/ui/separator";
 import { formatCentsToBRL } from "@/helpers/money";
-import { ChevronDown, ChevronUp } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
-import { useState } from "react";
 
 export const OrderItem = ({ idx, order }: { idx: string; order: Order }) => {
   const [isOpen, setIsOpen] = useState(false);
