@@ -38,7 +38,7 @@ export const Menu = () => {
         <div className="flex flex-col gap-3 p-5">
           <Separator />
           <MenuItem Icon={HomeIcon} text="Início" href={"/"} />
-          <MenuItem Icon={TruckIcon} text="Meus pedidos" href={"/"} />
+          <MenuItem Icon={TruckIcon} text="Meus pedidos" href={"/profile"} />
           <MenuItem Icon={ShoppingBagIcon} text="Carrinho" href={"/"} />
           <Separator />
           {session?.user && (
