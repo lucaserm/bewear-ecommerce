@@ -2,10 +2,10 @@
 
 import { headers } from "next/headers";
 
-import { auth } from "@/lib/auth";
-
 import { db } from "@/db";
 import { shippingAddressTable } from "@/db/schema";
+import { auth } from "@/lib/auth";
+
 import { AddAddressSchema, addAddressSchema } from "./schema";
 
 type AddAddressReturn = {

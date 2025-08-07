@@ -19,11 +19,7 @@ import {
 import CartItem from "./cart-item";
 
 export const Cart = () => {
-  const {
-    data: cart,
-    isPending: cartIsLoading,
-    error,
-  } = useQuery({
+  const { data: cart, isPending: cartIsLoading } = useQuery({
     queryKey: ["cart"],
     queryFn: () => getCart(),
   });

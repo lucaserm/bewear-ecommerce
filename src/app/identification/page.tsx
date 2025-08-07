@@ -1,5 +1,9 @@
 "use client";
 
+import { useQuery } from "@tanstack/react-query";
+import Image from "next/image";
+import { useState } from "react";
+
 import { getAddresses } from "@/actions/get-adresses";
 import { getCart } from "@/actions/get-cart";
 import { AddressForm } from "@/app/identification/components/address-form";
@@ -9,19 +13,16 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Separator } from "@/components/ui/separator";
 import { shippingAddressTable } from "@/db/schema";
 import { formatCentsToBRL } from "@/helpers/money";
-import { useQuery } from "@tanstack/react-query";
-import Image from "next/image";
-import { useState } from "react";
 
 type Address = typeof shippingAddressTable.$inferSelect;
 
 function Identification() {
-  const { data: addresses, isPending: addressesIsLoading } = useQuery({
+  const { data: addresses } = useQuery({
     queryKey: ["addresses"],
     queryFn: () => getAddresses(),
   });
 
-  const { data: cart, isPending: cartIsLoading } = useQuery({
+  const { data: cart } = useQuery({
     queryKey: ["cart"],
     queryFn: () => getCart(),
   });

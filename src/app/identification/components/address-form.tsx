@@ -1,5 +1,9 @@
 "use client";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import z from "zod";
 
 import { addAddress } from "@/actions/add-address";
 import { Button } from "@/components/ui/button";
@@ -12,10 +16,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { toast } from "sonner";
-import z from "zod";
 
 const formSchema = z.object({
   email: z.email("Email inválido."),
