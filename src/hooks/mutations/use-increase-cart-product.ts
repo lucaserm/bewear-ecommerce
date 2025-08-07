@@ -1,6 +1,7 @@
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+
 import { addProductToCart } from "@/actions/add-cart-product";
 import { getUseCartQueryKey } from "@/hooks/queries/use-cart";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export const getIncreaseCartProductMutationKey = (productVariantId: string) =>
   ["addProductToCart", productVariantId] as const;
