@@ -1,8 +1,7 @@
 import { z } from "zod";
 
 export const removeProductFromCartSchema = z.object({
-  productVariantId: z.uuid(),
-  quantity: z.number().min(1),
+  cartItemId: z.uuid(),
 });
 
 export type RemoveProductFromCartSchema = z.infer<

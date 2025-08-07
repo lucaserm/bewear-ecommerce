@@ -1,14 +1,16 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { MinusIcon, PlusIcon, TrashIcon } from "lucide-react";
 import Image from "next/image";
 
-import { addProductToCart } from "@/actions/add-cart-product";
-import { removeProductFromCart } from "@/actions/remove-cart-product";
 import { formatCentsToBRL } from "@/helpers/money";
 
+import { useDecreaseCartProduct } from "@/hooks/mutations/use-decrease-cart-product";
+import { useIncreaseCartProduct } from "@/hooks/mutations/use-increase-cart-product";
+import { useRemoveCartProduct } from "@/hooks/mutations/use-remove-product-from-cart";
+import { toast } from "sonner";
 import { Button } from "../ui/button";
 
 interface CartItemProps {
+  cartItemId: string;
   productVariantId: string;
   productName: string;
   productVariantName: string;
@@ -18,6 +20,7 @@ interface CartItemProps {
 }
 
 const CartItem = ({
+  cartItemId,
   productVariantId,
   productName,
   productVariantName,
@@ -25,30 +28,35 @@ const CartItem = ({
   productVariantPriceInCents,
   quantity,
 }: CartItemProps) => {
-  const queryClient = useQueryClient();
-  const { mutate: addMutate, isPending: addIsPending } = useMutation({
-    mutationKey: ["addProductToCart", productVariantId, quantity],
-    mutationFn: () =>
-      addProductToCart({
-        productVariantId,
-        quantity: 1,
-      }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["cart"] });
-    },
-  });
+  const addProductToCartMutation = useIncreaseCartProduct(productVariantId);
+  const removeProductFromCartMutation = useRemoveCartProduct(cartItemId);
+  const decreaseProductFromCartMutation = useDecreaseCartProduct(cartItemId);
 
-  const { mutate: removeMutate, isPending: removeIsPending } = useMutation({
-    mutationKey: ["removeProductFromCart", productVariantId, quantity],
-    mutationFn: () =>
-      removeProductFromCart({
-        productVariantId,
-        quantity: 1,
-      }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["cart"] });
-    },
-  });
+  const handleAdd = () => {
+    addProductToCartMutation.mutate(undefined, {
+      onSuccess: () => {
+        toast.success("Produto adicionado ao carrinho.");
+      },
+      onError: () => {
+        toast.error("Erro ao adicionar produto ao carrinho.");
+      },
+    });
+  };
+
+  const handleDecrease = () => {
+    decreaseProductFromCartMutation.mutate();
+  };
+
+  const handleRemove = () => {
+    removeProductFromCartMutation.mutate(undefined, {
+      onSuccess: () => {
+        toast.success("Produto removido do carrinho.");
+      },
+      onError: () => {
+        toast.error("Erro ao remover produto do carrinho.");
+      },
+    });
+  };
 
   return (
     <div className="flex items-center justify-between">
@@ -69,26 +77,25 @@ const CartItem = ({
             <Button
               className="h-4 w-4"
               variant="ghost"
-              onClick={() => removeMutate()}
-              disabled={addIsPending || removeIsPending}
+              onClick={handleDecrease}
             >
-              {quantity > 1 ? <MinusIcon /> : <TrashIcon />}
+              <MinusIcon />
             </Button>
             <p className="text-xs font-medium">{quantity}</p>
-            <Button
-              className="h-4 w-4"
-              variant="ghost"
-              onClick={() => addMutate()}
-              disabled={addIsPending || removeIsPending}
-            >
+            <Button className="h-4 w-4" variant="ghost" onClick={handleAdd}>
               <PlusIcon />
             </Button>
           </div>
         </div>
       </div>
-      <p className="self-end text-sm font-bold">
-        {formatCentsToBRL(quantity * productVariantPriceInCents)}
-      </p>
+      <div className="flex flex-col items-center gap-2">
+        <Button variant="outline" size="icon" onClick={handleRemove}>
+          <TrashIcon />
+        </Button>
+        <p className="self-end text-sm font-bold">
+          {formatCentsToBRL(quantity * productVariantPriceInCents)}
+        </p>
+      </div>
     </div>
   );
 };

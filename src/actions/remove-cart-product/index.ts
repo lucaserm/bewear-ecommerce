@@ -16,36 +16,28 @@ export const removeProductFromCart = async (
   data: RemoveProductFromCartSchema,
 ) => {
   removeProductFromCartSchema.parse(data);
+  await verifyIfCanBeDeleted(data.cartItemId);
+  await db.delete(cartItemTable).where(eq(cartItemTable.id, data.cartItemId));
+};
+
+async function verifyIfCanBeDeleted(cartItemId: string) {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
   if (!session?.user) {
     throw new Error("Unauthorized");
   }
-  const productVariant = await db.query.productVariantTable.findFirst({
-    where: (productVariant, { eq }) =>
-      eq(productVariant.id, data.productVariantId),
-  });
-  if (!productVariant) {
-    throw new Error("Product variant not found");
-  }
-  const cart = await db.query.cartTable.findFirst({
-    where: (cart, { eq }) => eq(cart.userId, session.user.id),
-  });
-  const cartId = cart?.id;
-  if (!cartId) return;
   const cartItem = await db.query.cartItemTable.findFirst({
-    where: (cartItem, { eq }) =>
-      eq(cartItem.cartId, cartId) &&
-      eq(cartItem.productVariantId, data.productVariantId),
+    where: (cartItem, { eq }) => eq(cartItem.id, cartItemId),
+    with: {
+      cart: true,
+    },
   });
-  if (!cartItem) return;
-  if (cartItem.quantity === data.quantity) {
-    await db.delete(cartItemTable).where(eq(cartItemTable.id, cartItem.id));
-  } else {
-    await db
-      .update(cartItemTable)
-      .set({ quantity: cartItem.quantity - data.quantity })
-      .where(eq(cartItemTable.id, cartItem.id));
+  const cartDoesNotBelongsToUser = cartItem?.cart.userId !== session.user.id;
+  if (cartDoesNotBelongsToUser) {
+    throw new Error("Unauthorized");
   }
-};
+  if (!cartItem) {
+    throw new Error("Cart item not found");
+  }
+}
