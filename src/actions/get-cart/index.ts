@@ -12,7 +12,7 @@ export const getCart = async () => {
   });
   if (!session?.user)
     return {
-      items: null,
+      items: [],
       totalPriceInCents: 0,
     };
   const cart = await db.query.cartTable.findFirst({
