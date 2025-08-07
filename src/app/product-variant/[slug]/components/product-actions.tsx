@@ -45,7 +45,7 @@ export const ProductActions = ({ productVariantId }: ProductActionsProps) => {
           quantity={quantity}
         />
         <Button className="rounded-full" size="lg" asChild>
-          <Link href={"/identification"}>Comprar agora</Link>
+          <Link href={"/cart/identification"}>Comprar agora</Link>
         </Button>
       </div>
     </>
