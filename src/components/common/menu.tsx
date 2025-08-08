@@ -1,3 +1,6 @@
+"use client";
+
+import { Separator } from "@radix-ui/react-separator";
 import {
   HomeIcon,
   LogOutIcon,
@@ -10,7 +13,6 @@ import Link from "next/link";
 
 import { AvatarContent } from "@/components/common/avatar-content";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 import {
   Sheet,
   SheetContent,
@@ -34,7 +36,7 @@ export const Menu = () => {
         <SheetHeader>
           <SheetTitle>Menu</SheetTitle>
         </SheetHeader>
-        <AvatarContent />
+        <AvatarContent session={session} />
         <div className="flex flex-col gap-3 p-5">
           <Separator />
           <MenuItem Icon={HomeIcon} text="Início" href={"/"} />

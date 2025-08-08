@@ -36,19 +36,21 @@ export const BrandsList = () => {
     },
   ];
   return (
-    <div className="space-y-6 px-5">
+    <div className="w-full space-y-6 px-5">
       <h3 className="font-semibold">Marcas parceiras</h3>
       <div className="flex w-full gap-5 overflow-x-auto [&::-webkit-scrollbar]:hidden">
         {brands.map((brand) => {
           return (
-            <div key={brand.name} className="flex flex-col items-center gap-3">
-              <div className="flex min-h-[100px] min-w-[150px] items-center justify-center rounded-3xl border">
+            <div
+              key={brand.name}
+              className="flex w-full cursor-pointer flex-col items-center gap-3"
+            >
+              <div className="flex min-h-[100px] w-full min-w-[150px] items-center justify-center rounded-3xl border">
                 <Image
                   src={brand.uri}
                   alt={brand.name}
-                  sizes="100vw"
-                  height={0}
-                  width={0}
+                  height={40}
+                  width={40}
                   className="h-auto w-auto"
                 />
               </div>

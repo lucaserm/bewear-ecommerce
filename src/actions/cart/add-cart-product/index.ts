@@ -2,6 +2,7 @@
 
 import { eq } from "drizzle-orm";
 import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 
 import { db } from "@/db";
 import { cartItemTable, cartTable } from "@/db/schema";
@@ -15,7 +16,7 @@ export const addProductToCart = async (data: AddProductToCartSchema) => {
     headers: await headers(),
   });
   if (!session?.user) {
-    throw new Error("Unauthorized");
+    redirect("/authentication");
   }
   const productVariant = await db.query.productVariantTable.findFirst({
     where: (productVariant, { eq }) =>

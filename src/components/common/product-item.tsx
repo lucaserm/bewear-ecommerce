@@ -28,7 +28,7 @@ export const ProductItem = ({
         sizes="100vw"
         height={0}
         width={0}
-        className="h-auto w-full rounded-3xl"
+        className="h-auto w-full rounded-3xl lg:min-w-[300px]"
       />
       <div
         className={cn(

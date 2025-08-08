@@ -1,14 +1,22 @@
 "use server";
 
+import Link from "next/link";
+
+import { db } from "@/db";
 import { categoryTable } from "@/db/schema";
 
-type Category = typeof categoryTable.$inferSelect;
-
-const CategoriesList = async ({ categories }: { categories: Category[] }) => {
+const CategoriesList = async () => {
+  const categories = await db.select().from(categoryTable);
   return (
-    <div>
+    <div className="flex w-full p-5 text-center">
       {categories.map((category) => (
-        <p key={category.id}>{category.name}</p>
+        <Link
+          href={`/category/${category.slug}`}
+          key={category.id}
+          className="text-muted-foreground w-full"
+        >
+          {category.name}
+        </Link>
       ))}
     </div>
   );

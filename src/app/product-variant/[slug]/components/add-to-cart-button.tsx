@@ -1,11 +1,9 @@
 "use client";
 
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
-import { toast } from "sonner";
 
-import { addProductToCart } from "@/actions/cart/add-cart-product";
 import { Button } from "@/components/ui/button";
+import { useIncreaseCartProduct } from "@/hooks/mutations/use-increase-cart-product";
 
 interface AddToCartButtonProps {
   productVariantId: string;
@@ -16,26 +14,24 @@ export const AddToCartButton = ({
   productVariantId,
   quantity,
 }: AddToCartButtonProps) => {
-  const queryClient = useQueryClient();
-  const { mutate, isPending } = useMutation({
-    mutationKey: ["addProductToCart", productVariantId, quantity],
-    mutationFn: () =>
-      addProductToCart({
-        productVariantId,
-        quantity,
-      }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["cart"] });
-      toast.success("Produto adicionado ao carrinho!");
-    },
+  const increaseCartProductMutation = useIncreaseCartProduct({
+    productVariantId,
+    quantity,
   });
+
+  const handleClick = () => {
+    increaseCartProductMutation.mutate();
+  };
+
+  const { isPending } = increaseCartProductMutation;
+
   return (
     <Button
       className="rounded-full"
       size="lg"
       variant="outline"
       disabled={isPending}
-      onClick={() => mutate()}
+      onClick={() => handleClick()}
     >
       {isPending && <Loader2 className="animate-spin" />}
       Adicionar à sacola
