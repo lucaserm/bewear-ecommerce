@@ -28,7 +28,7 @@ const CartItem = ({
   productVariantPriceInCents,
   quantity,
 }: CartItemProps) => {
-  const addProductToCartMutation = useIncreaseCartProduct(productVariantId);
+  const addProductToCartMutation = useIncreaseCartProduct({ productVariantId });
   const removeProductFromCartMutation = useRemoveCartProduct(cartItemId);
   const decreaseProductFromCartMutation = useDecreaseCartProduct(cartItemId);
 
