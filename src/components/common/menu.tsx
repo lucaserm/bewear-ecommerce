@@ -40,14 +40,14 @@ export const Menu = () => {
         <div className="flex flex-col gap-3 p-5">
           <Separator />
           <MenuItem Icon={HomeIcon} text="Início" href={"/"} />
-          <MenuItem Icon={TruckIcon} text="Meus pedidos" href={"/profile"} />
+          <MenuItem Icon={TruckIcon} text="Meus pedidos" href={"/my-orders"} />
           <MenuItem Icon={ShoppingBagIcon} text="Carrinho" href={"/"} />
           <Separator />
           {session?.user && (
             <MenuItem
               Icon={LogOutIcon}
               text="Sair da conta"
-              href={"/"}
+              href="/"
               classNameOverride="text-muted-foreground"
               onClick={() => authClient.signOut()}
             />

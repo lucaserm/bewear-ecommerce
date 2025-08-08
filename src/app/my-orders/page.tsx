@@ -1,8 +1,9 @@
-import { OrdersList } from "@/components/common/orders-list";
-import { db } from "@/db";
-import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+
+import { Orders } from "@/app/my-orders/components/orders";
+import { db } from "@/db";
+import { auth } from "@/lib/auth";
 
 const MyOrdersPage = async () => {
   const session = await auth.api.getSession({
@@ -29,7 +30,26 @@ const MyOrdersPage = async () => {
   return (
     <div className="px-5">
       <h2 className="font-bold">Meus pedidos</h2>
-      <OrdersList orders={orders} />
+      <Orders
+        orders={orders.map((order) => {
+          return {
+            id: order.id,
+            totalPriceInCents: order.totalPriceInCents,
+            status: order.status,
+            createdAt: order.createdAt,
+            items: order.items.map((item) => {
+              return {
+                id: item.id,
+                imageUrl: item.productVariant.imageUrl,
+                productName: item.productVariant.product.name,
+                productVariantName: item.productVariant.name,
+                quantity: item.quantity,
+                priceInCents: item.productVariant.priceInCents,
+              };
+            }),
+          };
+        })}
+      />
     </div>
   );
 };
