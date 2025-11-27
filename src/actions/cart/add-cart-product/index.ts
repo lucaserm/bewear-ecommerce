@@ -8,7 +8,7 @@ import { db } from "@/db";
 import { cartItemTable, cartTable } from "@/db/schema";
 import { auth } from "@/lib/auth";
 
-import { AddProductToCartSchema, addProductToCartSchema } from "./schema";
+import { type AddProductToCartSchema, addProductToCartSchema } from "./schema";
 
 export const addProductToCart = async (data: AddProductToCartSchema) => {
   addProductToCartSchema.parse(data);
@@ -40,8 +40,8 @@ export const addProductToCart = async (data: AddProductToCartSchema) => {
   }
   const cartItem = await db.query.cartItemTable.findFirst({
     where: (cartItem, { eq }) =>
-      eq(cartItem.cartId, cartId) &&
-      eq(cartItem.productVariantId, data.productVariantId),
+      eq(cartItem.cartId, cartId)
+      && eq(cartItem.productVariantId, data.productVariantId),
   });
   if (cartItem) {
     await db

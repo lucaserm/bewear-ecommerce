@@ -54,7 +54,7 @@ export const BrandsList = () => {
                   className="h-auto w-auto"
                 />
               </div>
-              <p className="text-sm font-medium">{brand.name}</p>
+              <p className="font-medium text-sm">{brand.name}</p>
             </div>
           );
         })}

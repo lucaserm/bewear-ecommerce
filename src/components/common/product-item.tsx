@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { productTable, productVariantTable } from "@/db/schema";
+import type { productTable, productVariantTable } from "@/db/schema";
 import { formatCentsToBRL } from "@/helpers/money";
 import { cn } from "@/lib/utils";
 
@@ -36,11 +36,11 @@ export const ProductItem = ({
           textContainerClassName,
         )}
       >
-        <p className="truncate text-sm font-medium">{product.name}</p>
-        <p className="text-muted-foreground truncate text-xs font-medium">
+        <p className="truncate font-medium text-sm">{product.name}</p>
+        <p className="truncate font-medium text-muted-foreground text-xs">
           {product.description}
         </p>
-        <p className="truncate text-sm font-semibold">
+        <p className="truncate font-semibold text-sm">
           {formatCentsToBRL(firstVariant.priceInCents)}
         </p>
       </div>

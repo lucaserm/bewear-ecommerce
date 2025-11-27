@@ -1,10 +1,10 @@
 "use client";
 
 import { Loader2 } from "lucide-react";
+import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { useIncreaseCartProduct } from "@/hooks/mutations/use-increase-cart-product";
-import { toast } from "sonner";
 
 interface AddToCartButtonProps {
   productVariantId: string;

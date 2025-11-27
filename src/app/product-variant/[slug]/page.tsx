@@ -51,13 +51,13 @@ const ProductVariantPage = async ({ params }: ProductVariantPageProps) => {
 
         <div className="flex flex-col">
           <div className="px-5">
-            <h2 className="mt-5 text-lg font-semibold md:text-2xl">
+            <h2 className="mt-5 font-semibold text-lg md:text-2xl">
               {productVariant.product.name}
             </h2>
             <h3 className="text-muted-foreground text-sm">
               {productVariant.name}
             </h3>
-            <h3 className="mt-5 text-lg font-semibold">
+            <h3 className="mt-5 font-semibold text-lg">
               {formatCentsToBRL(productVariant.priceInCents)}
             </h3>
             <VariantSelector

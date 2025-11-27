@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { ComponentProps } from "react";
 
-import { productVariantTable } from "@/db/schema";
-import { ComponentProps } from "react";
+import type { productVariantTable } from "@/db/schema";
 import { cn } from "@/lib/utils";
 
 interface VariantSelectorProps extends ComponentProps<"div"> {
@@ -24,7 +24,7 @@ export const VariantSelector = ({
           key={variant.id}
           className={
             selectedVariantSlug === variant.slug
-              ? "border-primary rounded-xl border-2"
+              ? "rounded-xl border-2 border-primary"
               : ""
           }
         >

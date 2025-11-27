@@ -3,7 +3,7 @@ import { LogInIcon } from "lucide-react";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
-import { authClient } from "@/lib/auth-client";
+import type { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 
 type Session = typeof authClient.$Infer.Session | null;
@@ -23,7 +23,7 @@ export const AvatarContent = ({ session }: { session?: Session }) => {
             </Avatar>
             <div>
               <h3 className="font-semibold">{session?.user?.name}</h3>
-              <span className="text-muted-foreground block text-xs">
+              <span className="block text-muted-foreground text-xs">
                 {session?.user?.email}
               </span>
             </div>

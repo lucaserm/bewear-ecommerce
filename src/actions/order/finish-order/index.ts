@@ -63,7 +63,7 @@ export const finishOrder = async () => {
         street: cart.shippingAddress.street,
         userId: session.user.id,
         totalPriceInCents,
-        shippingAddressId: cart.shippingAddress!.id,
+        shippingAddressId: cart.shippingAddress?.id,
       })
       .returning();
     if (!order) {

@@ -4,13 +4,13 @@ import { headers } from "next/headers";
 import Stripe from "stripe";
 
 import {
-  CreateCheckoutSessionSchema,
+  type CreateCheckoutSessionSchema,
   createCheckoutSessionSchema,
 } from "@/actions/stripe/create-checkout-session/schema";
 import { db } from "@/db";
 import { orderItemTable, orderTable } from "@/db/schema";
-import { auth } from "@/lib/auth";
 import { env } from "@/env";
+import { auth } from "@/lib/auth";
 
 export const createCheckoutSession = async (
   data: CreateCheckoutSessionSchema,

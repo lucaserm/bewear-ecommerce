@@ -11,7 +11,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { orderTable } from "@/db/schema";
+import type { orderTable } from "@/db/schema";
 import { formatCentsToBRL } from "@/helpers/money";
 
 interface OrdersProps {
@@ -73,16 +73,16 @@ export const Orders = ({ orders }: OrdersProps) => {
                           className="rounded-lg"
                         />
                         <div className="flex flex-col gap-1">
-                          <p className="text-sm font-semibold">
+                          <p className="font-semibold text-sm">
                             {product.productName}
                           </p>
-                          <p className="text-muted-foreground text-xs font-medium">
+                          <p className="font-medium text-muted-foreground text-xs">
                             {product.productVariantName} x {product.quantity}
                           </p>
                         </div>
                       </div>
                       <div className="flex flex-col items-end justify-center gap-2">
-                        <p className="text-sm font-bold">
+                        <p className="font-bold text-sm">
                           {formatCentsToBRL(
                             product.priceInCents * product.quantity,
                           )}
@@ -98,19 +98,19 @@ export const Orders = ({ orders }: OrdersProps) => {
                   <div className="space-y-2">
                     <div className="flex justify-between">
                       <p className="text-sm">Subtotal</p>
-                      <p className="text-muted-foreground text-sm font-medium">
+                      <p className="font-medium text-muted-foreground text-sm">
                         {formatCentsToBRL(order.totalPriceInCents)}
                       </p>
                     </div>
                     <div className="flex justify-between">
                       <p className="text-sm">Frete</p>
-                      <p className="text-muted-foreground text-sm font-medium">
+                      <p className="font-medium text-muted-foreground text-sm">
                         GRÁTIS
                       </p>
                     </div>
                     <div className="flex justify-between">
                       <p className="text-sm">Total</p>
-                      <p className="text-sm font-semibold">
+                      <p className="font-semibold text-sm">
                         {formatCentsToBRL(order.totalPriceInCents)}
                       </p>
                     </div>

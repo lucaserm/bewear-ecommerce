@@ -8,7 +8,7 @@ import { cartItemTable } from "@/db/schema";
 import { auth } from "@/lib/auth";
 
 import {
-  RemoveProductFromCartSchema,
+  type RemoveProductFromCartSchema,
   removeProductFromCartSchema,
 } from "./schema";
 

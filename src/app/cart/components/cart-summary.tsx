@@ -30,17 +30,17 @@ export const CartSummary = ({
       <CardContent className="space-y-3">
         <div className="flex justify-between">
           <p className="text-sm">Subtotal</p>
-          <p className="text-muted-foreground text-sm font-medium">
+          <p className="font-medium text-muted-foreground text-sm">
             {formatCentsToBRL(subtotalInCents)}
           </p>
         </div>
         <div className="flex justify-between">
           <p className="text-sm">Frete</p>
-          <p className="text-muted-foreground text-sm font-medium">GRÁTIS</p>
+          <p className="font-medium text-muted-foreground text-sm">GRÁTIS</p>
         </div>
         <div className="flex justify-between">
           <p className="text-sm">Total</p>
-          <p className="text-muted-foreground text-sm font-medium">
+          <p className="font-medium text-muted-foreground text-sm">
             {formatCentsToBRL(totalInCents)}
           </p>
         </div>
@@ -60,14 +60,14 @@ export const CartSummary = ({
                 className="rounded-lg"
               />
               <div className="flex flex-col gap-1">
-                <p className="text-sm font-semibold">{product.name}</p>
-                <p className="text-muted-foreground text-xs font-medium">
+                <p className="font-semibold text-sm">{product.name}</p>
+                <p className="font-medium text-muted-foreground text-xs">
                   {product.variantName}
                 </p>
               </div>
             </div>
             <div className="flex flex-col items-end justify-center gap-2">
-              <p className="text-sm font-bold">
+              <p className="font-bold text-sm">
                 {formatCentsToBRL(product.priceInCents)}
               </p>
             </div>

@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { updateCartShippingAddress } from "@/actions/address/update-cart-shipping-address";
-import { UpdateCartShippingAddressSchema } from "@/actions/address/update-cart-shipping-address/schema";
+import type { UpdateCartShippingAddressSchema } from "@/actions/address/update-cart-shipping-address/schema";
 
 import { getUseCartQueryKey } from "../queries/use-cart";
 

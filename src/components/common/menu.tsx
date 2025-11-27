@@ -4,7 +4,7 @@ import { Separator } from "@radix-ui/react-separator";
 import {
   HomeIcon,
   LogOutIcon,
-  LucideIcon,
+  type LucideIcon,
   MenuIcon,
   ShoppingBagIcon,
   TruckIcon,

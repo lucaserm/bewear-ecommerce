@@ -6,7 +6,7 @@ import { db } from "@/db";
 import { shippingAddressTable } from "@/db/schema";
 import { auth } from "@/lib/auth";
 
-import { AddAddressSchema, addAddressSchema } from "./schema";
+import { type AddAddressSchema, addAddressSchema } from "./schema";
 
 type AddAddressReturn = {
   id: string;
