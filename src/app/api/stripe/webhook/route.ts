@@ -4,20 +4,21 @@ import Stripe from "stripe";
 
 import { db } from "@/db";
 import { orderTable } from "@/db/schema";
+import { env } from "@/env";
 
 export const POST = async (request: Request) => {
-  if (!process.env.STRIPE_SECRET_KEY || !process.env.STRIPE_WEBHOOK_SECRET)
+  if (!env.STRIPE_SECRET_KEY || !env.STRIPE_WEBHOOK_SECRET)
     return NextResponse.error();
 
   const signature = request.headers.get("stripe-signature");
   if (!signature) return NextResponse.error();
 
   const text = await request.text();
-  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+  const stripe = new Stripe(env.STRIPE_SECRET_KEY);
   const event = stripe.webhooks.constructEvent(
     text,
     signature,
-    process.env.STRIPE_WEBHOOK_SECRET,
+    env.STRIPE_WEBHOOK_SECRET,
   );
   if (event.type === "checkout.session.completed") {
     const session = event.data.object;

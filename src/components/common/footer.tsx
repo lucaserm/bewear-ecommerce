@@ -1,7 +1,7 @@
 export const Footer = () => {
   return (
     <div className="bg-accent mt-15 w-full gap-1 p-8">
-      <p className="text-xs font-medium">© 2025 Copyright STORE</p>
+      <p className="text-xs font-medium">© 2025 Copyright Bewear</p>
       <p className="text-muted-foreground text-xs font-medium">
         Todos os direitos reservados.
       </p>

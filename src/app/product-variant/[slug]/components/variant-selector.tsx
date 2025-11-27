@@ -2,8 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { productVariantTable } from "@/db/schema";
+import { ComponentProps } from "react";
+import { cn } from "@/lib/utils";
 
-interface VariantSelectorProps {
+interface VariantSelectorProps extends ComponentProps<"div"> {
   selectedVariantSlug: string;
   variants: (typeof productVariantTable.$inferSelect)[];
 }
@@ -11,9 +13,11 @@ interface VariantSelectorProps {
 export const VariantSelector = ({
   selectedVariantSlug,
   variants,
+  className,
+  ...props
 }: VariantSelectorProps) => {
   return (
-    <div className="flex items-center gap-4">
+    <div className={cn("flex items-center gap-4", className)} {...props}>
       {variants.map((variant) => (
         <Link
           href={`/product-variant/${variant.slug}`}
