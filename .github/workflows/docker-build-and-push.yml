@@ -37,6 +37,5 @@ jobs:
         with:
           context: .
           file: ./dockerfile
-          target: production
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/apps:${{ github.event.repository.name }}-${{ github.ref_name }}-latest
