@@ -1,3 +1,8 @@
+volumes:
+  pgdata:
+networks:
+  postgres-net:
+
 services:
   postgres:
     image: postgres:18
@@ -9,6 +14,3 @@ services:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql
-
-volumes:
-  pgdata:

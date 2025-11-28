@@ -1,8 +1,8 @@
 import z from "zod";
 
 const envSchema = z.object({
-  DATABASE_URL: z.url(),
-  NEXT_PUBLIC_APP_URL: z.url(),
+  DATABASE_URL: z.string(),
+  NEXT_PUBLIC_APP_URL: z.string(),
   NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: z.string(),
   NEXT_PUBLIC_STRIPE_KEY: z.string(),
   STRIPE_SECRET_KEY: z.string(),
