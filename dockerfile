@@ -15,7 +15,7 @@ FROM node:22-alpine AS runner
 COPY --from=builder /app/drizzle.config.ts /app/drizzle ./
 WORKDIR /app
 
-ENV PORT=3001
+ENV PORT=3000
 ENV HOSTNAME=0.0.0.0
 
 COPY --from=builder /app/.next/static ./.next/static
