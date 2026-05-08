@@ -1,0 +1,4 @@
+# pnpm configuration for Docker builds
+auto-install-peers=true
+confirmModulesPurge=false
+verify-store-integrity=false
