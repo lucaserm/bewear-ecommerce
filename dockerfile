@@ -4,7 +4,7 @@ RUN npm install -g pnpm@latest
 
 FROM base AS deps
 COPY package.json pnpm-lock.yaml ./
-RUN pnpm install --frozen-lockfile
+RUN pnpm install --frozen-lockfile --allow-scripts=esbuild,sharp
 
 FROM base AS builder
 COPY . .
@@ -15,7 +15,7 @@ FROM node:22-alpine AS runner
 RUN npm install -g pnpm@latest
 
 COPY --from=builder /app/package.json /app/pnpm-lock.yaml ./
-RUN pnpm install --frozen-lockfile --prod
+RUN pnpm install --frozen-lockfile --prod --allow-scripts=sharp
 
 COPY --from=builder /app/drizzle.config.ts /app/drizzle ./
 WORKDIR /app
