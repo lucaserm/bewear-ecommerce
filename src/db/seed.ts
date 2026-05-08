@@ -539,35 +539,37 @@ async function main() {
   console.log("🌱 Iniciando o seeding do banco de dados...");
 
   try {
-    // Limpar dados existentes
-    console.log("🧹 Limpando dados existentes...");
-    await db.delete(productVariantTable);
-    await db.delete(productTable);
-    await db.delete(categoryTable);
-    console.log("✅ Dados limpos com sucesso!");
-
     // Inserir categorias primeiro
     const categoryMap = new Map<string, string>();
 
     console.log("📂 Criando categorias...");
     for (const categoryData of categories) {
-      const categoryId = crypto.randomUUID();
       const categorySlug = generateSlug(categoryData.name);
 
-      console.log(`  📁 Criando categoria: ${categoryData.name}`);
+      console.log(`  📁 Criando/verificando categoria: ${categoryData.name}`);
 
-      await db.insert(categoryTable).values({
-        id: categoryId,
-        name: categoryData.name,
-        slug: categorySlug,
+      // Use upsert pattern: try to find, if not exists, create
+      const existingCategory = await db.query.categoryTable.findFirst({
+        where: (fields, { eq }) => eq(fields.slug, categorySlug),
       });
+
+      let categoryId: string;
+      if (existingCategory) {
+        categoryId = existingCategory.id;
+      } else {
+        categoryId = crypto.randomUUID();
+        await db.insert(categoryTable).values({
+          id: categoryId,
+          name: categoryData.name,
+          slug: categorySlug,
+        });
+      }
 
       categoryMap.set(categoryData.name, categoryId);
     }
 
     // Inserir produtos
     for (const productData of products) {
-      const productId = crypto.randomUUID();
       const productSlug = generateSlug(productData.name);
       const categoryId = categoryMap.get(productData.categoryName);
 
@@ -577,36 +579,55 @@ async function main() {
         );
       }
 
-      console.log(`📦 Criando produto: ${productData.name}`);
+      console.log(`📦 Criando/verificando produto: ${productData.name}`);
 
-      await db.insert(productTable).values({
-        id: productId,
-        name: productData.name,
-        slug: productSlug,
-        description: productData.description,
-        categoryId: categoryId,
+      // Check if product already exists
+      const existingProduct = await db.query.productTable.findFirst({
+        where: (fields, { eq }) => eq(fields.slug, productSlug),
       });
+
+      let productId: string;
+      if (existingProduct) {
+        productId = existingProduct.id;
+      } else {
+        productId = crypto.randomUUID();
+        await db.insert(productTable).values({
+          id: productId,
+          name: productData.name,
+          slug: productSlug,
+          description: productData.description,
+          categoryId: categoryId,
+        });
+      }
 
       // Inserir variantes do produto
       for (const variantData of productData.variants) {
-        const variantId = crypto.randomUUID();
+        const variantSlug = generateSlug(`${productData.name}-${variantData.color}`);
         const productKey = productData.name as keyof typeof productImages;
         const variantImages =
           productImages[productKey]?.[
             variantData.color as keyof (typeof productImages)[typeof productKey]
           ] || [];
 
-        console.log(`  🎨 Criando variante: ${variantData.color}`);
+        console.log(`  🎨 Criando/verificando variante: ${variantData.color}`);
 
-        await db.insert(productVariantTable).values({
-          id: variantId,
-          name: variantData.color,
-          productId: productId,
-          color: variantData.color,
-          imageUrl: variantImages[0] || "",
-          priceInCents: variantData.price,
-          slug: generateSlug(`${productData.name}-${variantData.color}`),
+        // Check if variant already exists
+        const existingVariant = await db.query.productVariantTable.findFirst({
+          where: (fields, { eq }) => eq(fields.slug, variantSlug),
         });
+
+        if (!existingVariant) {
+          const variantId = crypto.randomUUID();
+          await db.insert(productVariantTable).values({
+            id: variantId,
+            name: variantData.color,
+            productId: productId,
+            color: variantData.color,
+            imageUrl: variantImages[0] || "",
+            priceInCents: variantData.price,
+            slug: variantSlug,
+          });
+        }
       }
     }
 
