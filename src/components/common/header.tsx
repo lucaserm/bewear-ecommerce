@@ -1,3 +1,4 @@
+import { TruckIcon } from "lucide-react";
 import { headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
@@ -5,6 +6,7 @@ import Link from "next/link";
 import CategoriesList from "@/components/common/categories-list";
 import { Menu } from "@/components/common/menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import { auth } from "@/lib/auth";
 
 import { Cart } from "./cart";
@@ -46,7 +48,14 @@ export const Header = async () => {
             />
           </Link>
           <div className="flex flex-1 items-center justify-end gap-3">
-            {session?.user && <Cart />}
+            {session?.user && (
+              <Button variant="outline" size="icon" asChild>
+                <Link href="/my-orders" aria-label="Meus pedidos">
+                  <TruckIcon />
+                </Link>
+              </Button>
+            )}
+            <Cart />
             <div className="lg:hidden">
               <Menu />
             </div>
