@@ -36,16 +36,16 @@ export const BrandsList = () => {
     },
   ];
   return (
-    <div className="w-full space-y-6 px-5">
+    <section className="w-full space-y-6">
       <h3 className="font-semibold">Marcas parceiras</h3>
-      <div className="flex w-full gap-5 overflow-x-auto [&::-webkit-scrollbar]:hidden">
+      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-7">
         {brands.map((brand) => {
           return (
             <div
               key={brand.name}
-              className="flex w-full cursor-pointer flex-col items-center gap-3"
+              className="flex cursor-pointer flex-col items-center gap-3"
             >
-              <div className="flex min-h-[100px] w-full min-w-[150px] items-center justify-center rounded-3xl border">
+              <div className="flex min-h-[92px] w-full items-center justify-center rounded-2xl border bg-card transition-shadow hover:shadow-md lg:min-h-[112px]">
                 <Image
                   src={brand.uri}
                   alt={brand.name}
@@ -59,6 +59,6 @@ export const BrandsList = () => {
           );
         })}
       </div>
-    </div>
+    </section>
   );
 };

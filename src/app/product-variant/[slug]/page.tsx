@@ -36,22 +36,22 @@ const ProductVariantPage = async ({ params }: ProductVariantPageProps) => {
     },
   });
   return (
-    <div className="mx-auto flex flex-col space-y-6 xl:max-w-[50%]">
-      <div className="mx-auto md:flex">
-        <div className="px-5">
+    <div className="space-y-14">
+      <div className="grid gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(360px,0.9fr)] lg:items-start lg:gap-14">
+        <div className="lg:sticky lg:top-8">
           <Image
             src={productVariant.imageUrl}
             alt={productVariant.name}
             sizes="100vw"
             height={0}
             width={0}
-            className="h-auto w-full object-cover md:rounded"
+            className="aspect-[4/5] h-auto w-full rounded-2xl object-cover"
           />
         </div>
 
-        <div className="flex flex-col">
-          <div className="px-5">
-            <h2 className="mt-5 font-semibold text-lg md:text-2xl">
+        <div className="flex flex-col lg:pt-8">
+          <div>
+            <h2 className="font-semibold text-2xl md:text-3xl">
               {productVariant.product.name}
             </h2>
             <h3 className="text-muted-foreground text-sm">
@@ -69,7 +69,7 @@ const ProductVariantPage = async ({ params }: ProductVariantPageProps) => {
 
           <ProductActions productVariantId={productVariant.id} />
 
-          <div className="mt-5 px-5">
+          <div className="mt-6">
             <p className="text-shadow-amber-600">
               {productVariant.product.description}
             </p>

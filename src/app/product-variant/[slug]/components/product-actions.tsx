@@ -25,7 +25,7 @@ export const ProductActions = ({ productVariantId }: ProductActionsProps) => {
 
   return (
     <>
-      <div className="px-5">
+      <div>
         <div className="space-y-4">
           <h3 className="font-medium">Quantidade</h3>
           <div className="flex w-[100px] items-center justify-between rounded-lg border">
@@ -39,7 +39,7 @@ export const ProductActions = ({ productVariantId }: ProductActionsProps) => {
           </div>
         </div>
       </div>
-      <div className="mt-5 flex flex-col space-y-4 px-5">
+      <div className="mt-6 flex flex-col space-y-4">
         <AddToCartButton
           productVariantId={productVariantId}
           quantity={quantity}

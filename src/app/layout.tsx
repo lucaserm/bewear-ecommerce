@@ -29,13 +29,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="pt-BR">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ReactQueryProvider>
           <Header />
-          {children}
+          <main className="site-shell min-h-[60vh] py-6 md:py-10">
+            {children}
+          </main>
         </ReactQueryProvider>
         <Toaster />
         <Footer />

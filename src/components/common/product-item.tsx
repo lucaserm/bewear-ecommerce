@@ -20,7 +20,7 @@ export const ProductItem = ({
   return (
     <Link
       href={`/product-variant/${firstVariant.slug}`}
-      className="flex flex-col gap-4"
+      className="group flex min-w-0 flex-col gap-3"
     >
       <Image
         src={firstVariant.imageUrl}
@@ -28,11 +28,11 @@ export const ProductItem = ({
         sizes="100vw"
         height={0}
         width={0}
-        className="h-auto w-full rounded-3xl lg:min-w-[300px]"
+        className="aspect-[4/5] h-auto w-full rounded-2xl object-cover transition-transform duration-300 group-hover:scale-[1.02]"
       />
       <div
         className={cn(
-          "flex max-w-[200px] flex-col gap-1",
+          "flex min-w-0 max-w-full flex-col gap-1",
           textContainerClassName,
         )}
       >

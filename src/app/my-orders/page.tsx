@@ -28,8 +28,8 @@ const MyOrdersPage = async () => {
     orderBy: (order, { asc }) => [asc(order.createdAt)],
   });
   return (
-    <div className="px-5">
-      <h2 className="font-bold">Meus pedidos</h2>
+    <div className="mx-auto max-w-4xl space-y-6">
+      <h2 className="font-bold text-2xl">Meus pedidos</h2>
       <Orders
         orders={orders.map((order) => {
           return {

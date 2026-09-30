@@ -23,7 +23,7 @@ export const CartSummary = ({
   products,
 }: CartSummaryProps) => {
   return (
-    <Card>
+    <Card className="lg:sticky lg:top-8">
       <CardHeader>
         <CardTitle>Resumo</CardTitle>
       </CardHeader>

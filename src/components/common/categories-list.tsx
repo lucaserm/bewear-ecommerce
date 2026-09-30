@@ -9,11 +9,11 @@ import { categoryTable } from "@/db/schema";
 const CategoriesList = async () => {
   const categories = await db.select().from(categoryTable);
   return (
-    <div className="flex w-full flex-col justify-center space-x-5 space-y-5 p-5 text-center md:flex-row">
+    <nav className="mt-4 hidden w-full items-center justify-center gap-2 border-t pt-4 lg:flex">
       {categories.map((category) => (
         <Button
           key={category.id}
-          className="hidden text-muted-foreground hover:text-secondary-foreground md:block"
+          className="text-muted-foreground hover:text-secondary-foreground"
           variant="ghost"
           asChild
         >
@@ -25,7 +25,7 @@ const CategoriesList = async () => {
           </Link>
         </Button>
       ))}
-    </div>
+    </nav>
   );
 };
 

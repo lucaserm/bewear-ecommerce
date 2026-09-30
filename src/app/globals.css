@@ -120,3 +120,16 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  .site-shell {
+    width: min(100% - 2.5rem, 1440px);
+    margin-inline: auto;
+  }
+
+  @media (min-width: 768px) {
+    .site-shell {
+      width: min(100% - 5rem, 1440px);
+    }
+  }
+}

@@ -4,7 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 function Authentication() {
   return (
-    <div className="flex w-full flex-col gap-6 p-5">
+    <div className="mx-auto flex w-full max-w-md flex-col gap-6 py-8 md:py-14">
       <Tabs defaultValue="sign-in">
         <TabsList>
           <TabsTrigger value="sign-in">Entrar</TabsTrigger>

@@ -14,39 +14,46 @@ export const Header = async () => {
     headers: await headers(),
   });
   return (
-    <header className="background flex flex-col p-5">
-      <div className="flex">
-        <div className="hidden flex-1 items-center lg:flex">
-          {session?.user && (
-            <div className="flex items-center gap-3">
-              <Avatar>
-                <AvatarImage src={session?.user?.image as string | undefined} />
-                <AvatarFallback>
-                  {session?.user?.name?.split(" ")?.[0]?.[0]}
-                  {session?.user?.name?.split(" ")?.[1]?.[0]}
-                </AvatarFallback>
-              </Avatar>
-              <h2>Olá, {session?.user.name}</h2>
+    <header className="border-b bg-background">
+      <div className="site-shell flex flex-col py-4 lg:py-5">
+        <div className="flex items-center">
+          <div className="hidden flex-1 items-center lg:flex">
+            {session?.user && (
+              <div className="flex items-center gap-3">
+                <Avatar>
+                  <AvatarImage
+                    src={session?.user?.image as string | undefined}
+                  />
+                  <AvatarFallback>
+                    {session?.user?.name?.split(" ")?.[0]?.[0]}
+                    {session?.user?.name?.split(" ")?.[1]?.[0]}
+                  </AvatarFallback>
+                </Avatar>
+                <h2>Olá, {session?.user.name}</h2>
+              </div>
+            )}
+          </div>
+          <Link
+            href="/"
+            className="flex flex-1 items-center justify-center lg:flex-[2]"
+          >
+            <Image
+              src="/logo.svg"
+              alt="BEWEAR"
+              width={118}
+              height={26}
+              className="mx-auto"
+            />
+          </Link>
+          <div className="flex flex-1 items-center justify-end gap-3">
+            {session?.user && <Cart />}
+            <div className="lg:hidden">
+              <Menu />
             </div>
-          )}
-        </div>
-        <Link href="/" className="flex items-center justify-center lg:flex-4">
-          <Image
-            src="/logo.svg"
-            alt="BEWEAR"
-            width={100}
-            height={26}
-            className="mx-auto"
-          />
-        </Link>
-        <div className="flex flex-1 items-center justify-end gap-3">
-          {session?.user && <Cart />}
-          <div className="lg:hidden">
-            <Menu />
           </div>
         </div>
+        <CategoriesList />
       </div>
-      <CategoriesList />
     </header>
   );
 };

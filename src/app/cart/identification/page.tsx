@@ -42,7 +42,7 @@ const IdentificationPage = async () => {
     0,
   );
   return (
-    <div className="space-y-4 px-5">
+    <div className="grid gap-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(340px,0.8fr)] lg:items-start">
       <Addresses
         shippingAddresses={shippingAddresses}
         defaultShippingAddressId={cart.shippingAddress?.id || null}
