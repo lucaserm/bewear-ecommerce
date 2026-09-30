@@ -40,6 +40,12 @@ COPY --from=builder --chown=nextjs:nodejs /app/drizzle.config.mjs ./drizzle.conf
 COPY --from=builder --chown=nextjs:nodejs /app/scripts ./scripts
 COPY --from=builder --chown=nextjs:nodejs /app/package.json ./package.json
 
+# Keep the database seed available for a manually invoked production task.
+# It is not part of the normal container startup command.
+COPY --from=builder --chown=nextjs:nodejs /app/src/db ./src/db
+COPY --from=builder --chown=nextjs:nodejs /app/src/env.ts ./src/env.ts
+COPY --from=builder --chown=nextjs:nodejs /app/tsconfig.json ./tsconfig.json
+
 USER nextjs
 
 EXPOSE 3000

@@ -37,8 +37,8 @@ const ProductVariantPage = async ({ params }: ProductVariantPageProps) => {
   });
   return (
     <div className="space-y-14">
-      <div className="grid gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(360px,0.9fr)] lg:items-start lg:gap-14">
-        <div className="lg:sticky lg:top-8">
+      <div className="grid gap-8 lg:grid-cols-[minmax(0,0.85fr)_minmax(420px,1.15fr)] lg:items-start lg:gap-14">
+        <div className="lg:sticky lg:top-8 lg:max-w-[560px]">
           <Image
             src={productVariant.imageUrl}
             alt={productVariant.name}
